@@ -1,39 +1,34 @@
-# Quick Start Guide
+# 快速开始指南
 
-This repository contains a Math Solver model that can be trained and tested using the provided scripts. Follow the steps below to set up the environment, train the model, and test it on a designated test set.
+本仓库包含一个数学求解模型，可使用提供的脚本进行训练和测试。请按照以下步骤配置环境、训练模型，并在指定测试集上进行测试。
 
-## Setup
+## 环境配置
 
-### Clone the Repository
+### 准备环境
 
-To get started, clone the repository using the following command:
-
-```bash
-git clone https://github.com/AI-FDU/Math_Solver.git
-```
-
-### Prepare the Environment
-
-If you are using the modelscope (魔搭), you do not need to install any additional environment. Otherwise, you can set up the required environment by running:
+如果你使用的是 ModelScope（魔搭），则无需额外安装环境。否则，可以运行以下命令安装所需依赖：
 
 ```bash
 pip install transformers modelscope peft swanlab
 ```
 
-## Training
+## 训练
 
-To initiate the training process, execute the following command:
+执行以下命令开始训练：
 
 ```bash
 python qwen_ft.py
 ```
 
-## Testing
+- 开始训练会自动下载`Qwen2.5-0.5B`模型，请确保你的设备有几个GB的空间
+- 训练需要登陆`swanlab`，请根据指引完成注册或登录
 
-Once the training is complete, you can test the model on a designated test set by running:
+## 测试
+
+训练完成后，可以运行以下命令在指定测试集上测试模型：
 
 ```bash
 python infer.py
 ```
 
-This will generate a `submit.csv` file, which can be directly submitted to the competition platform at [DataFountain](https://www.datafountain.cn/competitions/467/submits).
+该命令会生成 `submit.csv` 文件，可直接提交到 [DataFountain](https://www.datafountain.cn/competitions/467/submits) 竞赛平台。
