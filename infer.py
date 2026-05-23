@@ -1,7 +1,7 @@
 import json
 import torch
 from tqdm import tqdm
-from modelscope import AutoTokenizer
+from modelscope import AutoTokenizer, snapshot_download
 from transformers import AutoModelForCausalLM
 from peft import PeftModel
 
@@ -31,8 +31,13 @@ test_json_new_path = "test.json"
 with open(test_json_new_path, 'r', encoding='utf-8') as file:
     test_data = json.load(file)
 
-tokenizer = AutoTokenizer.from_pretrained("./Qwen/Qwen2.5-0.5B-Instruct/", use_fast=False, trust_remote_code=True)
-model = AutoModelForCausalLM.from_pretrained("./Qwen/Qwen2.5-0.5B-Instruct/", device_map="auto", torch_dtype=torch.bfloat16)
+model_dir = snapshot_download(
+    "Qwen/Qwen2.5-0.5B-Instruct",
+    cache_dir="./",
+    revision="master"
+)
+tokenizer = AutoTokenizer.from_pretrained(model_dir, use_fast=False, trust_remote_code=True)
+model = AutoModelForCausalLM.from_pretrained(model_dir, device_map="auto", torch_dtype=torch.bfloat16)
 model = PeftModel.from_pretrained(model, model_id="./output/Qwen/checkpoint-3750/")
 
 with open("submit.csv", 'w', encoding='utf-8') as file:
